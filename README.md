@@ -20,58 +20,102 @@ Method: GET
 Response Headers:
 
 
+
 StatusCode        : 200
+
 StatusDescription : OK
+
 Content           : 
+
 RawContent        : HTTP/1.1 200 OK
+
                     X-XSS-Protection: 0
+                    
                     X-Frame-Options: SAMEORIGIN
+                    
                     Transfer-Encoding: chunked
+                    
                     Proxy-Connection: Keep-Alive
+                    
                     Connection: Keep-Alive
+                    
                     Cache-Control: private
+                    
                     Content-Type: text/html; ch...
+                    
 Forms             : 
+
 Headers           : {[X-XSS-Protection, 0], [X-Frame-Options, SAMEORIGIN], [Transfer-Encoding, chunked], 
+
                     [Proxy-Connection, Keep-Alive]...}
+                    
 Images            : {}
+
 InputFields       : {}
+
 Links             : {}
+
 ParsedHtml        : 
+
 RawContentLength  : 0
 
+
 Invoke-WebRequest : The maximum redirection count has been exceeded. To increase the number of redirections allowed, 
+
 supply a higher value to the -MaximumRedirection parameter.
+
 At line:52 char:12
+
 + $testurl = Invoke-WebRequest -Uri $url -Proxy $proxy @racfin -Method  ...
 +            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     + CategoryInfo          : InvalidOperation: (System.Net.HttpWebRequest:HttpWebRequest) [Invoke-WebRequest], Invali 
    dOperationException
     + FullyQualifiedErrorId : MaximumRedirectExceeded,Microsoft.PowerShell.Commands.InvokeWebRequestCommand
 *******************************************************************
+
 OCS Response:
 
+
 HTTP/1.1 301 Moved Permanently
+
 BFCache-Opt-In: unload
+
 X-XSS-Protection: 0
+
 X-Frame-Options: SAMEORIGIN
+
 Proxy-Connection: Keep-Alive
+
 Connection: Keep-Alive
+
 Age: 1992929
+
 Content-Length: 219
+
 Cache-Control: public, max-age=2592000
+
 Content-Type: text/html; charset=UTF-8
+
 Date: Mon, 06 Dec 2021 14:51:05 GMT
+
 Expires: Wed, 05 Jan 2022 14:51:05 GMT
+
 Location: http://www.google.com/
+
 Server: gws
 
+
 <HTML><HEAD><meta http-equiv="content-type" content="text/html;charset=utf-8">
-<TITLE>301 Moved</TITLE></HEAD><BODY>
-<H1>301 Moved</H1>
-The document has moved
-<A HREF="http://www.google.com/">here</A>.
-</BODY></HTML>
+
+  <TITLE>301 Moved</TITLE></HEAD><BODY>
+
+  <H1>301 Moved</H1>
+
+  The document has moved
+
+  <A HREF="http://www.google.com/">here</A>.
+
+  </BODY></HTML>
 
 
 *******************************************************************
