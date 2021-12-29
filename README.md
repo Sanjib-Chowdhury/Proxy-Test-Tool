@@ -9,9 +9,13 @@ This tool helps to check whether the proxy is blocking connection or the develop
 Sample output below -
 
 Date: 12/29/2021 16:26:34
+
 Test URL: google.com
+
 Proxy: http://testproxy.net:80
+
 Method: GET
+
 
 Response Headers:
 
