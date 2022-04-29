@@ -1,0 +1,80 @@
+echo "**********************************************************************************************************"
+echo "* Purpose:                                                                                               *"
+echo "*    1. This script can be used to test non PAC aware applications, which may use same/ different proxy  *"
+echo "*    w.r.t. the web browser.                                                                             *"
+echo "*    Non PAC aware applications pick up proxy settings from specific configuration/ file, environment    *"
+echo "*    variable, system registry settings etc.                                                             *"
+echo "*    This script provides flexibility to use any proxy without changing any of these settings.           *"
+echo "*    2. This can be used to test response of different HTTP request methods like Get, Post, Head etc.    *"
+echo "*                                                                                                        *"
+echo "* Usecase:                                                                                               *"
+echo "*    To identify an URL is allowed/ blocked by the internet proxy where the application does not show    *"
+echo "*    error/ logs, but does not work.                                                                     *"
+echo "*                                                                                                        *"
+echo "* How to use:                                                                                            *"
+echo "*    Input the user credentials, URL, proxy details & method when prompted & hit enter. A file out.txt   *"
+echo "*    will get generated. Read carefully the message displayed in the output file.                        *"
+echo "*                                                                                                        *"
+echo "* Disclaimer:                                                                                            *"
+echo "*    There is no guarantee/ warranty that it will work as intended, though it worked fine during testing.*" 
+echo "*    Use at your own risk -:). Report bug to sanjib_25@yahoo.com                                         *"
+echo "*    Visit https://github.com/Sanjib-Chowdhury for more tools.                                           *"
+echo "**********************************************************************************************************"
+echo ""
+
+$Wcl=New-Object System.Net.WebClient
+$Creds=Get-Credential
+$racfin = @{
+ProxyCredential = $Creds
+}
+[void][Reflection.Assembly]::LoadWithPartialName('Microsoft.VisualBasic')
+$title = 'URL'
+$msg   = 'Enter an URL: e.g. https://www.google.com'
+$url = [Microsoft.VisualBasic.Interaction]::InputBox($msg, $title)
+[void][Reflection.Assembly]::LoadWithPartialName('Microsoft.VisualBasic')
+$title = 'Proxy'
+$msg   = 'Enter Proxy Details: e.g. http://proxy:port'
+$proxy = [Microsoft.VisualBasic.Interaction]::InputBox($msg, $title)
+[void][Reflection.Assembly]::LoadWithPartialName('Microsoft.VisualBasic')
+$title = 'Method'
+$msg   = 'Enter method: e.g. GET, POST, HEAD, PATCH'
+$method = [Microsoft.VisualBasic.Interaction]::InputBox($msg, $title)
+$date = date
+
+$(
+echo "**************************************************************"
+echo "*                    Proxy Test Tool                         *"
+echo "*         Report bug to sanjib_25@yahoo.com                  *"
+echo "*  Visit https://github.com/Sanjib-Chowdhury for more tools  *"
+echo "**************************************************************"
+echo "Date: $date" 
+echo "Test URL: $($url)" 
+echo "Proxy: $($proxy)" 
+echo "Method: $($method)" 
+echo "**********************************************************"
+echo "Response Headers:"
+Invoke-WebRequest -Uri $url -Proxy $proxy @racfin -Method HEAD -UseBasicParsing -maximumredirection 3;
+
+$testurl = Invoke-WebRequest -Uri $url -Proxy $proxy @racfin -Method $method -maximumredirection 0;
+
+echo "*******************************************************************"
+echo "OCS Response:"
+echo ""
+echo $testurl.RawContent
+echo ""
+echo "*******************************************************************"
+echo ""
+echo $testurl.Exception.Response.StatusCode.value__
+echo $testurl.Exception.Response.StatusDescription
+echo $testurl.WebResponseObject.RawContent
+echo "*******************************************************************"
+echo ""
+
+
+
+$Page = Invoke-WebRequest -Uri $url -Proxy $proxy @racfin -Method $method -maximumredirection 3;
+echo "Page Source: $($Page)"
+
+) *>&1 > out.txt
+
+Notepad out.txt
